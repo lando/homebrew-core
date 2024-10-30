@@ -16,7 +16,7 @@ class Lando < Formula
     system "npm", "install", "--production", *std_npm_args
     system "npm", "add", "@yao-pkg/pkg@5.15.0"
     system "npx", "pkg", "--config", "package.json", "--targets", "node20",
-     "--options", "'dns-result-order=ipv4first'", "bin/lando"
+     "--options", "dns-result-order=ipv4first", "bin/lando"
     bin.install "dist/@lando/core" => "lando"
   end
 
