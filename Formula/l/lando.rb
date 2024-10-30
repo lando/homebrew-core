@@ -1,8 +1,8 @@
 class Lando < Formula
   desc "Push button development environments"
   homepage "https://docs.lando.dev"
-  url "https://github.com/lando/core/archive/refs/tags/v3.23.0.tar.gz"
-  sha256 "1b48a0a94626f85192664248592f182b2fbf335d999c3e8dece4c0d39a2ddb09"
+  url "https://github.com/lando/core/archive/refs/tags/v3.23.2.tar.gz"
+  sha256 "a3edf4c1d82ce6af725d9760122f74e8ed74d453140d12407bf5764f19b145d5"
   license "GPL-3.0-or-later"
 
   livecheck do
