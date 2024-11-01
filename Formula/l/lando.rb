@@ -10,13 +10,22 @@ class Lando < Formula
     regex(/^v?(\d+(?:\.\d+)+)$/i)
   end
 
-  depends_on "node"
+  depends_on "node@20" => :build
+
+  resource("pkg") do
+    url "https://registry.npmjs.org/@yao-pkg/pkg/-/pkg-5.15.0.tgz"
+    sha256 "1311535b871bb09af0468df7bf09cca8627ce3bac64197add30a6d87c41a7bc6"
+  end
 
   def install
-    system "npm", "install", "--production", *std_npm_args
-    system "npm", "add", "@yao-pkg/pkg@5.15.0"
-    system "npx", "pkg", "--config", "package.json", "--targets", "node20",
-     "--options", "dns-result-order=ipv4first", "bin/lando"
+    resource("pkg").stage do
+      system "npm", "install", *std_npm_args
+      bin.install_symlink Dir["#{libexec}/bin/*"]
+    end
+
+    system "npm", "install", "--production", *std_npm_args(prefix: false)
+    system "pkg", "--config", "package.json", "--targets", "node20",
+     "--out-path" "dist", "--options", "dns-result-order=ipv4first", "bin/lando"
     bin.install "dist/@lando/core" => "lando"
   end
 
