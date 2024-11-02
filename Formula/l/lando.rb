@@ -29,6 +29,11 @@ class Lando < Formula
     bin.install "dist/@lando/core" => "lando"
   end
 
+  def post_install
+    system bin/"lando", "setup", "-y"
+    system bin/"lando", "update", "-y"
+  end
+
   def caveats
     <<~EOS
       To complete the installation:
