@@ -23,15 +23,12 @@ class Lando < Formula
       bin.install_symlink Dir["#{libexec}/bin/*"]
     end
 
+    # Ensure pkg is available for the following command
+    pkg_path = "#{libexec}/bin/pkg" # Adjust this path if necessary
     system "npm", "install", "--production", *std_npm_args(prefix: false)
-    system "pkg", "--config", "package.json", "--targets", "node20",
-     "--out-path" "dist", "--options", "dns-result-order=ipv4first", "bin/lando"
+    system pkg_path, "--config", "package.json", "--targets", "node20",
+     "--out-path", "dist", "--options", "dns-result-order=ipv4first", "bin/lando"
     bin.install "dist/@lando/core" => "lando"
-  end
-
-  def post_install
-    system bin/"lando", "setup", "-y"
-    system bin/"lando", "update", "-y"
   end
 
   def caveats
